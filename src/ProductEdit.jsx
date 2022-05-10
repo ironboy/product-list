@@ -4,6 +4,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import CategorySelect from './CategorySelect';
 import { useEffect } from 'react';
 
+// TO-DO BUG: Does not show the correct category
+// on hard reload
+
 export default function ProductDetail() {
 
   let s = useStates('main');
