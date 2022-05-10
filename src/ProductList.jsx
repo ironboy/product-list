@@ -2,6 +2,8 @@ import { useStates } from './utilities/states';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { scrollRestore } from './utilities/scrollBehavior';
+import CategorySelect from './CategorySelect';
+
 
 export default function ProductList() {
 
@@ -16,6 +18,7 @@ export default function ProductList() {
 
   return <Container className="productList">
     <Row><Col><h1>Products</h1></Col></Row>
+    <Row className="mb-3"><Col><CategorySelect /></Col></Row>
     {s.products.map(({ id, name, description, price }) =>
       <Row className="product" key={id} onClick={() => showDetail(id)}>
         <Card>

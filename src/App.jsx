@@ -21,8 +21,11 @@ export default function App() {
 
   let s = useStates('main', {
     products: [],
-    categories: []
+    categories: [],
+    chosenCategoryName: 'all'
   });
+
+  console.log(s.chosenCategoryName)
 
   useEffect(() => {
     (async () => {
