@@ -18,7 +18,7 @@ export default function ProductList() {
 
   return <Container className="productList">
     <Row><Col><h1>Products</h1></Col></Row>
-    <Row className="mb-3"><Col><CategorySelect /></Col></Row>
+    <Row className="mb-3"><Col><CategorySelect bindTo="chosenCategoryName" /></Col></Row>
     {s.products.filter(product =>
       s.chosenCategoryName === 'all'
       || s.chosenCategoryName === product.category.name

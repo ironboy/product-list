@@ -1,10 +1,11 @@
 import { useStates } from './utilities/states';
 
-export default function CategorySelector() {
+export default function CategorySelector(props) {
 
-  const s = useStates('main');
+  let s = useStates('main');
+  let { bindTo } = props;
 
-  return <select {...s.bind('chosenCategoryName')}>
+  return <select {...s.bind(bindTo)}>
     <option key={0}>all</option>
     {s.categories.map(({ name, id }) =>
       <option key={id}>{name}</option>
