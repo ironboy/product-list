@@ -22,17 +22,16 @@ export default function App() {
   let s = useStates('main', {
     products: [],
     categories: [],
-    chosenCategoryName: 'all'
+    chosenCategoryName: 'all',
+    editCategoryName: 'all'
   });
-
-  console.log(s.chosenCategoryName)
 
   useEffect(() => {
     (async () => {
-      // get the products from the db
-      s.products = await Product.find();
       // get the categories from the db
       s.categories = await Category.find();
+      // get the products from the db
+      s.products = await Product.find();
     })();
 
     // All objects created by a certain class
