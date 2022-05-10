@@ -11,7 +11,7 @@ export default function ProductDetail() {
 
   let product = s.products.find(x => x.id === +id);
   if (!product) { return null; }
-  let { name, description, price, categoryId } = product;
+  let { name, description, price } = product;
 
   async function save() {
     // Save to db
