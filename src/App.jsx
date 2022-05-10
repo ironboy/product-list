@@ -12,6 +12,7 @@ import './utilities/scrollBehavior.js';
 import ProductList from './ProductList';
 import ProductDetail from './ProductDetail';
 import ProductEdit from './ProductEdit';
+import ShoppingCart from './ShoppingCart'
 
 const { Product, Categorie: Category } = factory;
 
@@ -23,7 +24,8 @@ export default function App() {
     products: [],
     categories: [],
     chosenCategoryName: 'all',
-    editCategoryName: 'all'
+    editCategoryName: 'all',
+    cartContents: []
   });
 
   useEffect(() => {
@@ -59,6 +61,7 @@ export default function App() {
       <Route path="/" element={<ProductList />} />
       <Route path="/product-detail/:id" element={<ProductDetail />} />
       <Route path="/product-edit/:id" element={<ProductEdit />} />
+      <Route path="/shopping-cart" element={<ShoppingCart />} />
     </Routes>
   </Router> : null;
 }

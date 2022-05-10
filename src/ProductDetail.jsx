@@ -1,6 +1,7 @@
 import { useStates } from './utilities/states';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { add } from './utilities/shoppingCartLogic';
 
 export default function ProductDetail() {
 
@@ -10,6 +11,17 @@ export default function ProductDetail() {
   let product = s.products.find(x => x.id === +id);
   if (!product) { return null; }
   let { name, description, price, category } = product;
+
+  let navigate = useNavigate();
+
+  function buy() {
+    // Add the product to the cart
+    add(s.cartContents, product);
+    // Show the cart
+    navigate('/shopping-cart');
+  }
+
+  console.log('cart contents', s.cartContents);
 
   return <Container className="productList">
     <Row><Col>
@@ -26,6 +38,9 @@ export default function ProductDetail() {
       <Link to={`/product-edit/${id}`}>
         <button type="button" className="my-4 btn btn-primary float-end">Edit</button>
       </Link>
+    </Col></Row>
+    <Row><Col>
+      <button type="button" onClick={buy} className="mt-2 btn btn-primary float-end">Buy</button>
     </Col></Row>
   </Container>
 }
