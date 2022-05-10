@@ -1,0 +1,23 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+body {
+  margin: 40px;
+}
+
+.product {
+  cursor: pointer;
+  margin-bottom: 40px;
+}
+
+h1 {
+  margin-bottom: 40px;
+}
+
+.card h3 {
+  margin-top: 20px;
+}
+
+input,
+label {
+  width: 100%;
+}
