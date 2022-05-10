@@ -51,6 +51,6 @@ function bind(obj, name, value = obj[name], altValue) {
     onChange: ({ target: t }) =>
       t.type === 'checkbox' ?
         obj[name] = t.checked ? value : altValue :
-        obj[name] = t.type === 'number' ? +t.value : t.value
+        obj[name] = isNaN(+t.value) ? t.value : +t.value
   }
 }

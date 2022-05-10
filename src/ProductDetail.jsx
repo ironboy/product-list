@@ -21,8 +21,6 @@ export default function ProductDetail() {
     navigate('/shopping-cart');
   }
 
-  console.log('cart contents', s.cartContents);
-
   return <Container className="productList">
     <Row><Col>
       <Link to={`/`}>

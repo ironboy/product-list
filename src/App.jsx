@@ -23,8 +23,7 @@ export default function App() {
   let s = useStates('main', {
     products: [],
     categories: [],
-    chosenCategoryName: 'all',
-    editCategoryName: 'all',
+    chosenCategoryId: 0,
     cartContents: []
   });
 
