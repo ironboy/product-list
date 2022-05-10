@@ -9,7 +9,7 @@ export default function ProductDetail() {
 
   let product = s.products.find(x => x.id === +id);
   if (!product) { return null; }
-  let { name, description, price } = product;
+  let { name, description, price, category } = product;
 
   return <Container className="productList">
     <Row><Col>
@@ -18,7 +18,8 @@ export default function ProductDetail() {
         <hr />
       </Link>
     </Col></Row>
-    <Row><Col><h1>{name}</h1></Col></Row>
+    <Row><Col><h1 className="mb-2">{name}</h1></Col></Row>
+    <Row className="mb-3"><Col><h4>Category: {category.name}</h4></Col></Row>
     <Row><Col><p>{description}</p></Col></Row>
     <Row><Col><p>Price: ${price}</p></Col></Row>
     <Row><Col>
