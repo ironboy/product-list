@@ -13,18 +13,21 @@ import ProductList from './ProductList';
 import ProductDetail from './ProductDetail';
 import ProductEdit from './ProductEdit';
 
-const { Product } = factory;
+const { Product, Categorie: Category } = factory;
 
 export default function App() {
 
   let s = useStates('main', {
-    products: []
+    products: [],
+    categories: []
   });
 
   useEffect(() => {
     (async () => {
       // get the products from the db
       s.products = await Product.find();
+      // get the categories from the db
+      s.categories = await Category.find();
     })();
   }, []);
 
