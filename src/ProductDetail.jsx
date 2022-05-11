@@ -6,11 +6,18 @@ import { add } from './utilities/shoppingCartLogic';
 export default function ProductDetail() {
 
   let s = useStates('main');
-  let { id } = useParams();
 
+  // Find the product
+  let { id } = useParams();
   let product = s.products.find(x => x.id === +id);
   if (!product) { return null; }
-  let { name, description, price, category } = product;
+
+  let { name, description, price, categoryId } = product;
+
+  // Find the category
+  let categoryName = s.categories.find(category =>
+    category.id === categoryId
+  )?.name || 'none';
 
   let navigate = useNavigate();
 
@@ -29,7 +36,7 @@ export default function ProductDetail() {
       </Link>
     </Col></Row>
     <Row><Col><h1 className="mb-2">{name}</h1></Col></Row>
-    <Row className="mb-3"><Col><h4>Category: {category.name}</h4></Col></Row>
+    <Row className="mb-3"><Col><h4>Category: {categoryName}</h4></Col></Row>
     <Row><Col><p>{description}</p></Col></Row>
     <Row><Col><p>Price: ${price}</p></Col></Row>
     <Row><Col>
