@@ -7,12 +7,13 @@ import {
 
 import { useStates } from './utilities/states';
 import { factory } from './utilities/FetchHelper';
-import './utilities/scrollBehavior.js';
+import './utilities/scrollBehavior';
 
 import ProductList from './ProductList';
 import ProductDetail from './ProductDetail';
 import ProductEdit from './ProductEdit';
 import ShoppingCart from './ShoppingCart'
+
 
 const { Product, Categorie: Category } = factory;
 
@@ -23,8 +24,7 @@ export default function App() {
   let s = useStates('main', {
     products: [],
     categories: [],
-    chosenCategoryId: 0,
-    cartContents: []
+    chosenCategoryId: 0
   });
 
   useEffect(() => {

@@ -23,7 +23,7 @@ export default function ProductDetail() {
 
   function buy() {
     // Add the product to the cart
-    add(s.cartContents, product);
+    add(product);
     // Show the cart
     navigate('/shopping-cart');
   }
