@@ -1,7 +1,8 @@
 import { useStates } from './utilities/states';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import { empty } from './utilities/shoppingCartLogic';
+import { empty, save } from './utilities/shoppingCartLogic';
+import { useEffect } from 'react';
 
 export default function ShoppingCart() {
 
@@ -9,6 +10,11 @@ export default function ShoppingCart() {
 
   let totalSum = s.cartContents.reduce((acc, row) =>
     acc + row.quantity * row.product.price, 0);
+
+  useEffect(() => {
+    // Save the cart contents (on quantity changes)
+    save();
+  });
 
   return <Container className="shoppingCart">
     <Row><Col>
@@ -28,14 +34,16 @@ export default function ShoppingCart() {
           <tbody>
             {s.cartContents.map((row, i) => <tr key={i}>
               <td>{row.product.name}</td>
-              <td className="text-end">{row.quantity}</td>
-              <td className="text-end">{row.product.price}</td>
-              <td className="text-end">{row.quantity * row.product.price}</td>
+              <td className="text-end">
+                <input className="text-end" style={{ width: 50 }} type="number" min={1} max={100} {...row.bind('quantity')} />
+              </td>
+              <td className="text-end" style={{ width: 100 }}>{(row.product.price).toFixed(2)}</td>
+              <td className="text-end" style={{ width: 100 }}>{(row.quantity * row.product.price).toFixed(2)}</td>
             </tr>)}
             <tr className="fw-bold">
               <td>Sum</td>
               <td colSpan={3} className="text-end">
-                {totalSum}
+                {totalSum.toFixed(2)}
               </td>
             </tr>
           </tbody>

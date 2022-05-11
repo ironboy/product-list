@@ -3,11 +3,11 @@ import store from './store';
 
 let stateObject, stateProperty;
 
-function save() {
+export function save() {
+  // set localStorage from state
+  store.cartContents = stateObject[stateProperty];
   // save to local storage
   store.save();
-  // save to state variable
-  stateObject[stateProperty] = store.cartContents;
 }
 
 export function init(stateObj, stateProp) {
@@ -15,7 +15,8 @@ export function init(stateObj, stateProp) {
   // we can change the state each time we save the cart
   stateObject = stateObj;
   stateProperty = stateProp;
-  save();
+  // set state from localStorage
+  stateObj[stateProperty] = store.cartContents || [];
 }
 
 export function add(productToAdd, quantityToAdd = 1) {
@@ -37,6 +38,6 @@ export function add(productToAdd, quantityToAdd = 1) {
 }
 
 export function empty() {
-  store.cartContents = [];
+  stateObject[stateProperty] = [];
   save();
 }
