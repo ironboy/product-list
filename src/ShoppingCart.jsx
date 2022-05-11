@@ -13,15 +13,31 @@ export default function ShoppingCart() {
     <Row><Col>
       <h1>Shopping cart</h1>
     </Col></Row>
-    {s.cartContents.map((row, i) => <Row key={i}>
-      <Col>{row.product.name}</Col>
-      <Col>{row.quantity}</Col>
-      <Col>{row.quantity * row.product.price}</Col>
-    </Row>)}
     <Row>
-      <Col>Summa:</Col>
-      <Col></Col>
-      <Col>{totalSum}</Col>
+      <Col>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th className="text-end">Quantity</th>
+              <th className="text-end">Sum</th>
+            </tr>
+          </thead>
+          <tbody>
+            {s.cartContents.map((row, i) => <tr key={i}>
+              <td>{row.product.name}</td>
+              <td className="text-end">{row.quantity}</td>
+              <td className="text-end">{row.quantity * row.product.price}</td>
+            </tr>)}
+            <tr className="fw-bold">
+              <td>Sum</td>
+              <td colspan={2} className="text-end">
+                {totalSum}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </Col>
     </Row>
   </Container>
 }
