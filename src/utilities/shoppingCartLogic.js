@@ -21,15 +21,13 @@ export function init(stateObj, stateProp) {
 
 export function add(productToAdd, quantityToAdd = 1) {
 
-  store.cartContents = store.cartContents || [];
-
-  let row = store.cartContents
+  let row = stateObject[stateProperty]
     .find(row => row.product.id === productToAdd.id);
   if (row) {
     row.quantity += quantityToAdd
   }
   else {
-    store.cartContents.push({
+    stateObject[stateProperty].push({
       product: productToAdd,
       quantity: quantityToAdd
     });
