@@ -9,6 +9,15 @@ export default function ShoppingCart() {
   let totalSum = s.cartContents.reduce((acc, row) =>
     acc + row.quantity * row.product.price, 0);
 
+  if (!s.cartContents.length) {
+    return <Container className="shoppingCart">
+      <Row><Col>
+        <h1>Shopping cart</h1>
+      </Col></Row>
+      <Row><Col>The cart is empty...</Col></Row>
+    </Container>
+  }
+
   return <Container className="shoppingCart">
     <Row><Col>
       <h1>Shopping cart</h1>
