@@ -1,8 +1,21 @@
 // Import a small wrapper fror localStorage
 import store from './store';
 
-export function get() {
-  return store.cartContents || [];
+let stateObject, stateProperty;
+
+function save() {
+  // save to local storage
+  store.save();
+  // save to state variable
+  stateObject[stateProperty] = store.cartContents;
+}
+
+export function init(stateObj, stateProp) {
+  // remember the state object and state property so that
+  // we can change the state each time we save the cart
+  stateObject = stateObj;
+  stateProperty = stateProp;
+  save();
 }
 
 export function add(productToAdd, quantityToAdd = 1) {
@@ -20,5 +33,10 @@ export function add(productToAdd, quantityToAdd = 1) {
       quantity: quantityToAdd
     });
   }
-  store.save();
+  save();
+}
+
+export function empty() {
+  store.cartContents = [];
+  save();
 }

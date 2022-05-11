@@ -1,26 +1,14 @@
 import { useStates } from './utilities/states';
-import { get } from './utilities/shoppingCartLogic';
-
 import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from "react-router-dom";
+import { empty } from './utilities/shoppingCartLogic';
 
 export default function ShoppingCart() {
 
   let s = useStates('main');
 
-  let cartContents = get();
-  console.log(cartContents);
-
-  let totalSum = cartContents.reduce((acc, row) =>
+  let totalSum = s.cartContents.reduce((acc, row) =>
     acc + row.quantity * row.product.price, 0);
-
-  if (!cartContents.length) {
-    return <Container className="shoppingCart">
-      <Row><Col>
-        <h1>Shopping cart</h1>
-      </Col></Row>
-      <Row><Col>The cart is empty...</Col></Row>
-    </Container>
-  }
 
   return <Container className="shoppingCart">
     <Row><Col>
@@ -28,7 +16,7 @@ export default function ShoppingCart() {
     </Col></Row>
     <Row>
       <Col>
-        <table className="table">
+        {s.cartContents.length ? <table className="table">
           <thead>
             <tr>
               <th>Product</th>
@@ -38,7 +26,7 @@ export default function ShoppingCart() {
             </tr>
           </thead>
           <tbody>
-            {cartContents.map((row, i) => <tr key={i}>
+            {s.cartContents.map((row, i) => <tr key={i}>
               <td>{row.product.name}</td>
               <td className="text-end">{row.quantity}</td>
               <td className="text-end">{row.product.price}</td>
@@ -51,7 +39,15 @@ export default function ShoppingCart() {
               </td>
             </tr>
           </tbody>
-        </table>
+        </table> : <p>The cart is empty...</p>}
+      </Col>
+    </Row>
+    <Row>
+      <Col>
+        <Link className="float-end text-decoration-none" to={`/`}>
+          <button type="button" className="btn btn-primary">Back to list</button>
+        </Link>
+        {s.cartContents.length ? <button onClick={empty} type="button" className="btn btn-primary float-end me-3">Empty cart</button> : <></>}
       </Col>
     </Row>
   </Container>

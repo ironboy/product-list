@@ -7,6 +7,7 @@ import {
 
 import { useStates } from './utilities/states';
 import { factory } from './utilities/FetchHelper';
+import { init } from './utilities/shoppingCartLogic';
 import './utilities/scrollBehavior';
 
 import ProductList from './ProductList';
@@ -14,17 +15,16 @@ import ProductDetail from './ProductDetail';
 import ProductEdit from './ProductEdit';
 import ShoppingCart from './ShoppingCart'
 
-
+// Create classes used for fetching from the REST-api
 const { Product, Categorie: Category } = factory;
-
-window.Product = Product
 
 export default function App() {
 
   let s = useStates('main', {
     products: [],
     categories: [],
-    chosenCategoryId: 0
+    chosenCategoryId: 0,
+    cartContents: []
   });
 
   useEffect(() => {
@@ -33,6 +33,9 @@ export default function App() {
       s.categories = await Category.find();
       // get the products from the db
       s.products = await Product.find();
+      // initilize the shopping cart
+      // (this provides local storage of cartContents)
+      init(s, 'cartContents');
     })();
   }, []);
 
