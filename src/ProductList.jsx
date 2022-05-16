@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { scrollRestore } from './utilities/scrollBehavior';
 import CategorySelect from './CategorySelect';
 import { sweFormat } from './utilities/currencyFormatter';
+import { missingImage } from './utilities/handleMissingImage';
 
 export default function ProductList() {
 
@@ -27,8 +28,7 @@ export default function ProductList() {
         <Card>
           <Col xxl="12">
             <h3>{name}</h3>
-          </Col>
-          <Col xxl="12">
+            <img onError={event => missingImage(event, name)} className="float-end ms-3" style={{ width: 250, height: 150, objectFit: 'cover' }} src={`/images/products/${id}.jpg`} />
             <p>{description}</p>
           </Col>
           <Col xxl="12">
