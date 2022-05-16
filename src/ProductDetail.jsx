@@ -3,10 +3,22 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { add } from './utilities/shoppingCartLogic';
 import { sweFormat } from './utilities/currencyFormatter';
+import { useEffect } from 'react';
 
 export default function ProductDetail() {
 
   let s = useStates('main');
+
+  // A local state for this component
+  // with one property/state var - buyQuantity
+  let localState = useStates({
+    buyQuantity: 1
+  });
+
+  // Set the buyQuantity to 1 when the component mounts / "page load"
+  useEffect(() => {
+    localState.buyQuantity = 1;
+  }, []);
 
   // Find the product
   let { id } = useParams();
@@ -24,7 +36,7 @@ export default function ProductDetail() {
 
   function buy() {
     // Add the product to the cart
-    add(product);
+    add(product, localState.buyQuantity);
     // Show the cart
     navigate('/shopping-cart');
   }
@@ -45,8 +57,9 @@ export default function ProductDetail() {
         <button type="button" className="my-4 btn btn-primary float-end">Edit</button>
       </Link>
     </Col></Row>
-    <Row><Col>
-      <button type="button" onClick={buy} className="mt-2 btn btn-primary float-end">Buy</button>
+    <Row><Col className="mt-2">
+      <button type="button" onClick={buy} className="btn btn-primary float-end">Buy</button>
+      <input style={{ width: 100 }} className="float-end mt-1 me-3" type="number" {...localState.bind('buyQuantity')} />
     </Col></Row>
   </Container>
 }
