@@ -4,6 +4,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { add } from './utilities/shoppingCartLogic';
 import { sweFormat } from './utilities/currencyFormatter';
 import { useEffect } from 'react';
+import { missingImage } from './utilities/handleMissingImage';
 
 export default function ProductDetail() {
 
@@ -50,7 +51,10 @@ export default function ProductDetail() {
     </Col></Row>
     <Row><Col><h1 className="mb-2">{name}</h1></Col></Row>
     <Row className="mb-3"><Col><h4>Category: {categoryName}</h4></Col></Row>
-    <Row><Col><p>{description}</p></Col></Row>
+    <Row><Col>
+      <img onError={event => missingImage(event, name)} className="float-end ms-3" style={{ width: 250, height: 150, objectFit: 'cover' }} src={`/images/products/${id}.jpg`} />
+      <p>{description}</p>
+    </Col></Row>
     <Row><Col><p>Price: {sweFormat(price)}</p></Col></Row>
     <Row><Col>
       <Link to={`/product-edit/${id}`}>
