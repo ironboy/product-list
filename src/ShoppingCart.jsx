@@ -26,7 +26,7 @@ export default function ShoppingCart() {
         {s.cartContents.length ? <table className="table">
           <thead>
             <tr>
-              <th>Product</th>
+              <th colSpan={2}>Product</th>
               <th className="text-end">Quantity</th>
               <th className="text-end">à</th>
               <th className="text-end">Sum</th>
@@ -34,7 +34,7 @@ export default function ShoppingCart() {
           </thead>
           <tbody>
             {s.cartContents.map((row, i) => <tr key={i}>
-              <td style={{ cursor: 'pointer' }} onClick={() => remove(row.product)}>🗑️</td>
+              <td style={{ cursor: 'pointer', width: 1 }} onClick={() => remove(row.product)}>🗑️</td>
               <td>{row.product.name}</td>
               <td className="text-end">
                 <input className="text-end" style={{ width: 50 }} type="number" min={1} max={100} {...row.bind('quantity')} />
