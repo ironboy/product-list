@@ -9,7 +9,7 @@ export default function MainNav() {
 
   return <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
     <Container>
-      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+      <Link className="navbar-brand" to="/">My Shop</Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
