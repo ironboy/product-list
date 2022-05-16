@@ -3,7 +3,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { scrollRestore } from './utilities/scrollBehavior';
 import CategorySelect from './CategorySelect';
-
+import { sweFormat } from './utilities/currencyFormatter';
 
 export default function ProductList() {
 
@@ -32,7 +32,7 @@ export default function ProductList() {
             <p>{description}</p>
           </Col>
           <Col xxl="12">
-            <p><b>Price:</b> ${price}</p>
+            <p><b>Price:</b> {sweFormat(price)}</p>
           </Col>
         </Card>
       </Row>

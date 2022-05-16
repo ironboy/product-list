@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { empty, save } from './utilities/shoppingCartLogic';
 import { useEffect } from 'react';
+import { sweFormat } from './utilities/currencyFormatter';
 
 export default function ShoppingCart() {
 
@@ -37,13 +38,13 @@ export default function ShoppingCart() {
               <td className="text-end">
                 <input className="text-end" style={{ width: 50 }} type="number" min={1} max={100} {...row.bind('quantity')} />
               </td>
-              <td className="text-end" style={{ width: 100 }}>{(row.product.price).toFixed(2)}</td>
-              <td className="text-end" style={{ width: 100 }}>{(row.quantity * row.product.price).toFixed(2)}</td>
+              <td className="text-end" style={{ width: 100 }}>{sweFormat(row.product.price)}</td>
+              <td className="text-end" style={{ width: 100 }}>{sweFormat(row.quantity * row.product.price)}</td>
             </tr>)}
             <tr className="fw-bold">
               <td>Sum</td>
               <td colSpan={3} className="text-end">
-                {totalSum.toFixed(2)}
+                {sweFormat(totalSum)}
               </td>
             </tr>
           </tbody>

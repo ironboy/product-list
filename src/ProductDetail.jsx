@@ -2,6 +2,7 @@ import { useStates } from './utilities/states';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { add } from './utilities/shoppingCartLogic';
+import { sweFormat } from './utilities/currencyFormatter';
 
 export default function ProductDetail() {
 
@@ -38,7 +39,7 @@ export default function ProductDetail() {
     <Row><Col><h1 className="mb-2">{name}</h1></Col></Row>
     <Row className="mb-3"><Col><h4>Category: {categoryName}</h4></Col></Row>
     <Row><Col><p>{description}</p></Col></Row>
-    <Row><Col><p>Price: ${price}</p></Col></Row>
+    <Row><Col><p>Price: {sweFormat(price)}</p></Col></Row>
     <Row><Col>
       <Link to={`/product-edit/${id}`}>
         <button type="button" className="my-4 btn btn-primary float-end">Edit</button>
