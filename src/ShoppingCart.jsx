@@ -52,7 +52,7 @@ export default function ShoppingCart() {
     </Row>
     <Row>
       <Col>
-        <Link className="float-end text-decoration-none" to={`/`}>
+        <Link className="float-end text-decoration-none" to={`/product-list`}>
           <button type="button" className="btn btn-primary">Back to list</button>
         </Link>
         {s.cartContents.length ? <button onClick={empty} type="button" className="btn btn-primary float-end me-3">Empty cart</button> : <></>}

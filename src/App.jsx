@@ -10,6 +10,7 @@ import { factory } from './utilities/FetchHelper';
 import { init } from './utilities/shoppingCartLogic';
 import './utilities/scrollBehavior';
 
+import StartPage from './StartPage';
 import ProductList from './ProductList';
 import ProductDetail from './ProductDetail';
 import ProductEdit from './ProductEdit';
@@ -41,7 +42,8 @@ export default function App() {
 
   return s.products.length ? <Router>
     <Routes>
-      <Route path="/" element={<ProductList />} />
+      <Route path="/" element={<StartPage />} />
+      <Route path="/product-list" element={<ProductList />} />
       <Route path="/product-detail/:id" element={<ProductDetail />} />
       <Route path="/product-edit/:id" element={<ProductEdit />} />
       <Route path="/shopping-cart" element={<ShoppingCart />} />
