@@ -35,6 +35,17 @@ export function add(productToAdd, quantityToAdd = 1) {
   save();
 }
 
+export function remove(productToRemove) {
+  // Find the index of the product to remove
+  let rowIndex = stateObject[stateProperty]
+    .findIndex(row => row.product.id === productToRemove.id);
+  if (rowIndex >= 0) {
+    // If found remove the product and save the cart
+    stateObject[stateProperty].splice(rowIndex, 1);
+    save();
+  }
+}
+
 export function empty() {
   stateObject[stateProperty] = [];
   save();
