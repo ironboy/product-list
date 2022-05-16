@@ -1,11 +1,17 @@
 import { Container, Navbar, Nav } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function MainNav() {
 
-  // React Router DOM v6 got rid of the NavLink component
-  // What is the smartest way to recreate that functionality
-  // (adding an active CSS class to the active menu choice)
+  // Detect React router change of location
+  let { pathname: route } = useLocation();
+
+  // Links
+  let links = [
+    ['Welcome', '/'],
+    ['Product List', '/product-list'],
+    ['Shopping-cart', '/shopping-cart']
+  ];
 
   return <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
     <Container>
@@ -13,9 +19,12 @@ export default function MainNav() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          <Link className="nav-link" to="/">Welcome</Link>
-          <Link className="nav-link" to="/product-list">Product list</Link>
-          <Link className="nav-link" to="/shopping-cart">Shopping cart</Link>
+          {links.map(([label, to]) =>
+            <Link
+              key={to} to={to}
+              className={`nav-link ${to === route ? 'active' : ''}`}
+            >{label}</Link>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Container>
