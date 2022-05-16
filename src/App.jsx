@@ -10,6 +10,7 @@ import { factory } from './utilities/FetchHelper';
 import { init } from './utilities/shoppingCartLogic';
 import './utilities/scrollBehavior';
 
+import MainNav from './MainNav';
 import StartPage from './StartPage';
 import ProductList from './ProductList';
 import ProductDetail from './ProductDetail';
@@ -40,13 +41,15 @@ export default function App() {
     })();
   }, []);
 
-  return s.products.length ? <Router>
-    <Routes>
-      <Route path="/" element={<StartPage />} />
-      <Route path="/product-list" element={<ProductList />} />
-      <Route path="/product-detail/:id" element={<ProductDetail />} />
-      <Route path="/product-edit/:id" element={<ProductEdit />} />
-      <Route path="/shopping-cart" element={<ShoppingCart />} />
-    </Routes>
-  </Router> : null;
+  return s.products.length === 0 ? null :
+    <Router>
+      <MainNav />
+      <Routes>
+        <Route path="/" element={<StartPage />} />
+        <Route path="/product-list" element={<ProductList />} />
+        <Route path="/product-detail/:id" element={<ProductDetail />} />
+        <Route path="/product-edit/:id" element={<ProductEdit />} />
+        <Route path="/shopping-cart" element={<ShoppingCart />} />
+      </Routes>
+    </Router>
 }
