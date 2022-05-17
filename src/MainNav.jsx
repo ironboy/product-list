@@ -13,7 +13,7 @@ export default function MainNav() {
     ['Shopping-cart', '/shopping-cart']
   ];
 
-  return <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
+  return <Navbar fixed="top" bg="dark" variant="dark" expand="lg" className="mb-4">
     <Container>
       <Link className="navbar-brand" to="/">My Shop</Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />

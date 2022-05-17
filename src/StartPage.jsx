@@ -1,3 +1,7 @@
+import { Container, Row, Col } from 'react-bootstrap';
+
 export default function StartPage() {
-  return <h1>Welcome!</h1>
+  return <Container><Row><Col>
+    <h1>Welcome!</h1>
+  </Col></Row></Container>
 }
