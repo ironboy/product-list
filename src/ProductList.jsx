@@ -21,8 +21,8 @@ export default function ProductList() {
     <Row><Col><h1>Products</h1></Col></Row>
     <Row className="mb-3"><Col><CategorySelect showAllOption bindTo={[s, 'chosenCategoryId']} /></Col></Row>
     {s.products.filter(product =>
-      s.chosenCategoryId === 0 /*all*/
-      || s.chosenCategoryId === product.categoryId
+      s.chosenCategoryId == 0 /*all*/
+      || +s.chosenCategoryId === product.categoryId
     ).map(({ id, name, description, price }) =>
       <Row className="product" key={id} onClick={() => showDetail(id)}>
         <Card>
