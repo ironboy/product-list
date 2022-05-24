@@ -3,6 +3,21 @@
 // in our REST-api/database
 // ironboy 2022
 
+/*
+const { Product } = factory;
+
+await Product.find()              // get all products
+await Product.findOne(1)          // get the product with id 1
+
+let someProduct = new Product();  // create new product
+await someProduct.save()          // save new product in db
+
+let aProduct = await Product.findOne(3);
+await aProduct.save()             // save changes to db
+
+await aProduct.delete()           // delete from database
+*/
+
 export class FetchHelper {
 
   static async find(parameter = '') {
