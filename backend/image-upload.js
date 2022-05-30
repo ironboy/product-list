@@ -17,8 +17,8 @@ module.exports = app => {
       }
 
       try {
-        console.log('location', JSON.parse(fields.location || {}));
-        console.log('address', JSON.parse(fields.address || {}));
+        //console.log('location', JSON.parse(fields.location || {}));
+        //console.log('address', JSON.parse(fields.address || {}));
       }
       catch (e) {
         console.log('location and address not recieved');
@@ -29,7 +29,7 @@ module.exports = app => {
 
       // open file with 'fs' to enable it to be 
       // saved as a file
-      let fileData = fs.readFileSync(file.path);
+      let fileData = fs.readFileSync(file.filepath);
       fs.writeFileSync(
         path.join(__dirname, '../public', 'images', 'products', fields.id + '.jpg'),
         fileData
