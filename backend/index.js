@@ -3,13 +3,16 @@ const express = require('express');
 const restApi = require('./rest-api');
 const path = require('path');
 
+const imageUpload = require('./image-upload');
+
 const port = 4000;
 const dbPath = '../database/db.sqlite3';
 
 async function start() {
   const db = await bestSqlite.connect(dbPath);
   const app = express();
-  app.use(express.json());
+  app.use(express.json()); // make it possible to read request bodies
+  imageUpload(app); // add a route for uploading images
   restApi(app, db);
   serveDistFolder(app);
   app.listen(port, () => console.log('Backend listening on http://localhost:' + port));
