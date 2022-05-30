@@ -2,6 +2,8 @@ import { useStates } from './utilities/states';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useParams, useNavigate } from "react-router-dom";
 import CategorySelect from './CategorySelect';
+import { initializeMedia, captureImage, uploadImage } from './utilities/imageCapture';
+import { useState } from 'react';
 
 export default function ProductDetail() {
 
@@ -9,6 +11,20 @@ export default function ProductDetail() {
   let { id } = useParams();
   let navigate = useNavigate();
 
+  // a local state only for this component
+  let l = useStates({
+    captureMode: true,
+    replaceImage: false
+  });
+
+  // initialize media (start talking to camera)
+  // when the component loads
+  useState(() => {
+    initializeMedia();
+  }, []);
+
+
+  // find the correct product based on id
   let product = s.products.find(x => x.id === +id);
   if (!product) { return null; }
   let { name, description, price } = product;
@@ -16,8 +32,15 @@ export default function ProductDetail() {
   async function save() {
     // Save to db
     await product.save();
+    // Upload image if the image should be replaced
+    l.replaceImage && await uploadImage(id);
     // Navigate to detail page
     navigate(`/product-detail/${id}`);
+  }
+
+  function takeImage() {
+    captureImage();
+    l.captureMode = false;
   }
 
   // Check if we are offline (in that case no editing available)
@@ -32,8 +55,17 @@ export default function ProductDetail() {
       </Col></Row>
     </Container > :
 
-    <Container>
+    <Container className="product-edit">
       {/* Online */}
+      {l.replaceImage ?
+        <Row><Col>
+          <video style={{ display: l.captureMode ? 'block' : 'none' }} autoPlay></video>
+          <canvas width="320" height="240" style={{ display: !l.captureMode ? 'block' : 'none' }}></canvas>
+          <button className="btn btn-primary mt-3 mb-5" onClick={takeImage}>Capture</button>
+        </Col></Row> : <Row><Col>
+          <img src={`/images/products/${id}.jpg`} />
+          <button className="btn btn-primary mt-3 mb-5" onClick={() => l.replaceImage = true}>Replace image</button>
+        </Col></Row>}
       <Row><Col><h1>{name}</h1></Col></Row>
       <Row><Col><p>{description}</p></Col></Row>
       <Row><Col><p>Price: ${price}</p></Col></Row>
