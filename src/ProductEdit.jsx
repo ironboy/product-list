@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useParams, useNavigate } from "react-router-dom";
 import CategorySelect from './CategorySelect';
 import { initializeMedia, captureImage, uploadImage } from './utilities/imageCapture';
+import { missingImage } from './utilities/handleMissingImage';
 import { useState } from 'react';
 
 export default function ProductDetail() {
@@ -63,7 +64,7 @@ export default function ProductDetail() {
           <canvas width="320" height="240" style={{ display: !l.captureMode ? 'block' : 'none' }}></canvas>
           <button className="btn btn-primary mt-3 mb-5" onClick={takeImage}>Capture</button>
         </Col></Row> : <Row><Col>
-          <img src={`/images/products/${id}.jpg`} />
+          <img onError={event => missingImage(event, name)} src={`/images/products/${id}.jpg`} />
           <button className="btn btn-primary mt-3 mb-5" onClick={() => l.replaceImage = true}>Replace image</button>
         </Col></Row>}
       <Row><Col><h1>{name}</h1></Col></Row>
