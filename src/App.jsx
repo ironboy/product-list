@@ -35,6 +35,9 @@ export default function App() {
       s.categories = await Category.find();
       // get the products from the db
       s.products = await Product.find();
+      // debug - console.log the categories and products
+      console.log(s.products);
+      console.log(s.categories);
       // initilize the shopping cart
       // (this provides local storage of cartContents)
       init(s, 'cartContents');
