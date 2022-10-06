@@ -43,16 +43,12 @@ export class FetchHelper {
   }
 
   async save() {
-    // make a copy of this object but without the property route
-    // that we can stringify an send via REST
-    let copy = Object.assign({}, this);
-    delete copy.route;
     // now put or post depending on if we have an id or not
     let method = this.id ? 'PUT' : 'POST';
-    let result = await (await fetch(`/api/${this.route}${method === 'PUT' ? '/' + this.id : ''}`, {
+    let result = await (await fetch(`/api/${this.constructor.route}${method === 'PUT' ? '/' + this.id : ''}`, {
       method,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(copy)
+      body: JSON.stringify(this)
     })).json();
     // In this particular REST-api lastInsertRowid is returned
     // on posts and is the id of the newly created item
@@ -68,7 +64,7 @@ export class FetchHelper {
 
   async delete() {
     if (!this.id) { return { error: 'No id, can not delete' } };
-    return await (await fetch(`/api/${this.route}/${this.id}`, {
+    return await (await fetch(`/api/${this.constructor.route}/${this.id}`, {
       method: 'DELETE'
     }));
   }
@@ -79,10 +75,8 @@ export class FetchHelper {
 
 export class Product extends FetchHelper {
   static route = 'products';
-  route = 'products';
 }
 
 export class Category extends FetchHelper {
   static route = 'categories'
-  route = 'categories';
 }
