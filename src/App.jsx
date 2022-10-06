@@ -6,9 +6,14 @@ import {
 } from "react-router-dom";
 
 import { useStates } from './utilities/states';
-import { factory } from './utilities/FetchHelper';
 import { init } from './utilities/shoppingCartLogic';
 import './utilities/scrollBehavior';
+
+/* NOTE: Check documentation on usage in FetchHelper! */
+import {
+  Product,
+  Category
+} from './utilities/FetchHelper';
 
 import MainNav from './MainNav';
 import StartPage from './StartPage';
@@ -17,10 +22,27 @@ import ProductDetail from './ProductDetail';
 import ProductEdit from './ProductEdit';
 import ShoppingCart from './ShoppingCart'
 
-// Create classes used for fetching from the REST-api
-const { Product, Categorie: Category } = factory;
-
 export default function App() {
+
+  /* 
+    NOTE:
+
+    useStates is a custom hook that provides
+    namespaced states that can be reached in all components
+
+    it does the job of useState and useContext in one
+    and then some more:
+    it also makes binding data to forms real easy
+     - see the ProductEdit component
+
+    all the properties in the state will automatically
+    trigger rerendering of components when you change them
+    so no more need for useState and the setProperty
+    function from useState
+
+    here we create a named state with the name "main"
+    it will be later be accessed in most of our components
+  */
 
   let s = useStates('main', {
     products: [],
@@ -35,12 +57,10 @@ export default function App() {
       s.categories = await Category.find();
       // get the products from the db
       s.products = await Product.find();
-      // debug - console.log the categories and products
-      console.log(s.products);
-      console.log(s.categories);
       // initilize the shopping cart
       // (this provides local storage of cartContents)
       init(s, 'cartContents');
+      console.log(s);
     })();
   }, []);
 

@@ -4,7 +4,13 @@
 // ironboy 2022
 
 /*
-const { Product } = factory;
+  VERY IMPORTANT:
+  Replace .lastInsertRowid with whatever property you rest api
+  provides in its answer to POSTS to tell you the new id of an item
+*/
+
+/*
+Example usage, if we have created a Product subclass
 
 await Product.find()              // get all products
 await Product.findOne(1)          // get the product with id 1
@@ -48,7 +54,7 @@ export class FetchHelper {
     if (method === 'POST' && result.lastInsertRowid) {
       this.id = result.lastInsertRowid;
     }
-    // in this particular REST-api the property _errror
+    // in this particular REST-api the property _error
     // signals that things have gone wrong
     if (result._error) {
       throw (new Error(result));
@@ -64,21 +70,12 @@ export class FetchHelper {
 
 }
 
-// What ever property you ask the factory for it
-// will create a class with that name that extends FetchHelper
-export const factory = new Proxy({}, {
-  get(object, property) {
-    // just to get nice class names when logging in chrome dev tools
-    let func = x => x;
-    try {
-      func = new Function('x', `return class ${property} extends x {}`);
-    } catch (e) { }
-    // create a sub class to FetchHelper
-    let routeName = property.toLowerCase() + 's';
-    return func(class extends FetchHelper {
-      static set route(val) { routeName = val; }
-      static get route() { return routeName; }
-      get route() { return routeName; }
-    });
-  }
-});
+// Sub classes (create them based on what entitites you have in your REST api)
+
+export class Product extends FetchHelper {
+  static route = 'products';
+}
+
+export class Category extends FetchHelper {
+  static route = 'categories'
+}
