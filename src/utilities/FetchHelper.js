@@ -37,18 +37,24 @@ export class FetchHelper {
   }
 
   constructor(props) {
+    // Get the route from the static property route
+    // and set as a private instance property
+    this._route = this.constructor.route;
     // Props = all properties for the object as an object
     // copy to this (the object being created)
     Object.assign(this, props);
   }
 
   async save() {
+    // copy the object and remove the property _route
+    let copy = Object.assign({}, this);
+    delete copy._route;
     // now put or post depending on if we have an id or not
     let method = this.id ? 'PUT' : 'POST';
-    let result = await (await fetch(`/api/${this.constructor.route}${method === 'PUT' ? '/' + this.id : ''}`, {
+    let result = await (await fetch(`/api/${this._route}${method === 'PUT' ? '/' + this.id : ''}`, {
       method,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(this)
+      body: JSON.stringify(copy)
     })).json();
     // In this particular REST-api lastInsertRowid is returned
     // on posts and is the id of the newly created item
@@ -64,7 +70,7 @@ export class FetchHelper {
 
   async delete() {
     if (!this.id) { return { error: 'No id, can not delete' } };
-    return await (await fetch(`/api/${this.constructor.route}/${this.id}`, {
+    return await (await fetch(`/api/${this._route}/${this.id}`, {
       method: 'DELETE'
     }));
   }
